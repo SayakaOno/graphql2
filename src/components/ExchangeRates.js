@@ -1,15 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
-
-const query = gql`
-  {
-    rates(currency: "USD") {
-      currency
-      rate
-    }
-  }
-`;
+import { graphql } from 'react-apollo';
+import { query, getCurrencyQuery } from '../queries';
 
 const renderCurrency = ({ loading, error, data }) => {
   if (loading) {
@@ -29,8 +21,16 @@ const renderCurrency = ({ loading, error, data }) => {
   });
 };
 
-const ExchangeRates = () => {
+const ExchangeRates = props => {
+  console.log(props);
   return <Query query={query}>{props => renderCurrency(props)}</Query>;
+  // return <div>{renderCurrency(props)}</div>;
 };
 
-export default ExchangeRates;
+export default graphql(getCurrencyQuery, {
+  options: props => {
+    return {
+      variables: { currency: props.currency }
+    };
+  }
+})(ExchangeRates);
