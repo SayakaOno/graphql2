@@ -7,9 +7,12 @@ export default props => {
     <Query query={query}>
       {({ loading, data }) => {
         return loading ? (
-          <p>loading...</p>
+          <select>
+            <option value="">Currency</option>
+          </select>
         ) : (
           <select onChange={e => props.onChange(e.target.value)}>
+            <option value="">Currency</option>
             {data.rates.map(rate => {
               return (
                 <option value={props.currency} key={rate.currency}>

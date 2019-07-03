@@ -4,7 +4,6 @@ export const query = gql`
   {
     rates(currency: "USD") {
       currency
-      rate
     }
   }
 `;

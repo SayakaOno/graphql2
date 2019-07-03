@@ -10,7 +10,6 @@ const client = new ApolloClient({
 
 function App() {
   const [currency, setCurrency] = useState('USD');
-  console.log(currency);
 
   return (
     <ApolloProvider client={client}>

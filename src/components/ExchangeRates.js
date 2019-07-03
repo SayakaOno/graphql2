@@ -1,16 +1,15 @@
 import React from 'react';
-import { Query } from 'react-apollo';
 import { graphql } from 'react-apollo';
-import { query, getCurrencyQuery } from '../queries';
+import { getCurrencyQuery } from '../queries';
 
-const renderCurrency = ({ loading, error, data }) => {
+const renderCurrency = ({ loading, error, rates }) => {
   if (loading) {
     return <p>Loading...</p>;
   }
   if (error) {
     return <p>Error :(</p>;
   }
-  return data.rates.map(({ currency, rate }) => {
+  return rates.map(({ currency, rate }) => {
     return (
       <div key={currency}>
         <p>
@@ -22,9 +21,7 @@ const renderCurrency = ({ loading, error, data }) => {
 };
 
 const ExchangeRates = props => {
-  console.log(props);
-  return <Query query={query}>{props => renderCurrency(props)}</Query>;
-  // return <div>{renderCurrency(props)}</div>;
+  return <div>{renderCurrency(props.data)}</div>;
 };
 
 export default graphql(getCurrencyQuery, {
